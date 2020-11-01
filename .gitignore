@@ -28,3 +28,4 @@ log
 # 账户等
 *.txt
 *.bat
+*.ini
