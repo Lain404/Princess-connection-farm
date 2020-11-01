@@ -24,3 +24,7 @@ log
 /test/
 /developutils/
 /users_bak/
+
+# 账户等
+*.txt
+*.bat
