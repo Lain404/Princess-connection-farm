@@ -21,6 +21,7 @@ def skip_caption(captcha_img):
     if len(captcha_userstr) == 0 or len(captcha_software_key) == 0:
         pcr_log('admin').write_log(level='error', message='打码-密码串或者软件KEY为空！')
         return False
+    pcr_log('admin').write_log(level='error', message='打码配置OK')
     while True:
         # 获取host
         host_result = requests.get(url="http://3.haoi23.net/svlist.html").text
@@ -35,6 +36,10 @@ def skip_caption(captcha_img):
     # 发送图片
     # img = cv2.imread('yanzhengma.png')
     img = captcha_img
+    #增加图片裁剪
+    #img = captcha_img[140:370,390:570]
+
+
     b64_img = cv2.imencode('.png', img)[1].tobytes()  # 把ndarray转换成字符串
     b64_img = base64.b64encode(b64_img)
     img_hear_dict = {
@@ -98,4 +103,4 @@ def getpoint():
     error_feature = ['#', '']
     if int(c.text) > 0 and c.text not in error_feature:
         return int(c.text)
-        # print("剩余题分：", int(c.text))
+    print("剩余题分：", int(c.text))

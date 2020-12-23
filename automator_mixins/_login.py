@@ -1,6 +1,9 @@
 import gc
 import time
 
+#import uiautomator2 as u2
+#查找content-desc
+
 from core.constant import MAIN_BTN, ZHUCAIDAN_BTN, START_UI
 from core.pcr_config import debug, captcha_wait_time, captcha_popup, captcha_skip
 from core.safe_u2 import timeout
@@ -64,50 +67,32 @@ class LoginMixin(BaseMixin):
             if debug:
                 print("发现协议")
             self.d.touch.down(814, 367).sleep(1).up(814, 367)
-            self.d(text="同意").click()
+            self.d(content="同意").click()
             time.sleep(6)
         flag = False
-        if self.d(text="Geetest").exists():
+        testcount=0
+        while self.d(description="Geetest").exists():
+            if testcount>3:
+                print("验证码超过3次，账号跳过")
+                break
             flag = True
+            testcount=testcount+1
             self.phone_privacy()
             if captcha_skip is False:
-                # 仅会识别两次，防止一直扣分
                 screen = self.getscreen()
                 x, y = skip_caption(captcha_img=screen)
+                testcount = testcount + 1
                 print("验证码坐标识别：", x, ',', y)
                 self.click(x, y, post_delay=1)
-                self.click_btn(START_UI["queren"], retry=5)
-                if self.d(text="Geetest").exists():
-                    self.click(451, 442)
-                    time.sleep(3)
-                    while self.d(text="Geetest").exists():
-                        screen = self.getscreen()
-                        x, y = skip_caption(captcha_img=screen)
-                        print("验证码n次坐标识别：", x, ',', y)
-                        self.click(x, y, post_delay=1)
-                        self.click_btn(START_UI["queren"], retry=5)
-                        if debug:
-                            print("等待认证")
-                        while self.d(text="请滑动阅读协议内容").exists():
-                            if debug:
-                                print("发现协议")
-                            self.d.touch.down(814, 367).sleep(1).up(814, 367)
-                            self.d(text="同意").click()
-                            time.sleep(6)
-                time.sleep(1)
+                #self.click_btn(START_UI["queren"], retry=5)
+                print("准备确认")
+                if (self.d(description="确认").exists()):
+                    print("按钮存在")
+                    self.click(539,382)
+                    time.sleep(4)
                 if not self.d(text="Geetest").exists():
                     flag = False
-            else:
-                self.log.write_log("error", message='%s账号出现了验证码，请在%d秒内手动输入验证码' % (self.account, captcha_wait_time))
-                if captcha_popup:
-                    TimeoutMsgBox("!", f"{self.address}出现验证码\n账号：{self.account}", geo="200x80", timeout=captcha_wait_time)
-                now_time = time.time()
-                while time.time() - now_time < captcha_wait_time:
-                    time.sleep(1)
-                    if not self.d(text="Geetest").exists():
-                        flag = False
-                        break
-
+                time.sleep(4)#等待 防止连续验证码出现错误
         if flag:
             return -1
         if debug:
