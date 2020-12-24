@@ -1,6 +1,11 @@
 
 *.bmp
 *.txt
+<<<<<<< HEAD
 *.rec
 *.log
 *.pyc
+=======
+*.bat
+*.ini
+>>>>>>> parent of 5b8e507... 修改 gitignore
