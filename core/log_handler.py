@@ -106,7 +106,7 @@ class pcr_log():  # 帐号内部日志（从属于每一个帐号）
                 info = {
                     'text': 'Princess-connection——公主连结农场脚本',
                     'desp': '#### 系统运行信息：\n- %s\n- %s\n\n------\n\n农场信息：\n\n```\n\n%s\n\n%s\n\n```\n\n'
-                            '来自GITHUB一款开源脚本: https://github.com/SimonShi1994/Princess-connection-farm\n\n ' % (
+                            '来自GITHUB一款开源脚本\n ' % (
                                 cpu_info, memory_info, message, acc_state)
 
                 }

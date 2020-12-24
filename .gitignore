@@ -1,36 +1,6 @@
-.idea
-.vscode
-__pycache__
-test.py
-img/test.bmp
-venv
-AccountRecord.txt
-AccountRecord.log
-accounts.txt
-accounts_init.txt
-diy.py
-/screenshots/
-/users/
-/rec/
-log
-/tasks/
-/batches/
-/schedules/
-/groups/
-/developutils/*.bmp
-/error_screenshot/
 
-# 测试用文件夹
-/test/
-/developutils/
-/users_bak/
-
-# 账户等
+*.bmp
 *.txt
-*.bat
-*.ini
-账号文件
-*.xls
-*.xls
-*.txt
-*.xls
+*.rec
+*.log
+*.pyc
